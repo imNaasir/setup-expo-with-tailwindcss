@@ -4,8 +4,8 @@ import AuthStackNavigator from "./navigation/auth-navigators/AuthStackNavigator"
 import "../global.css";
 
 const AuthenticatedUserCheck = () => {
-  //   const token = ""; // when user is null
-  const token = "tokfsdjflksjflsfsjdfkjsklfoiweiewrwriowr"; // when user is authenticated
+    const token = ""; // when user is null
+  // const token = "tokfsdjflksjflsfsjdfkjsklfoiweiewrwriowr"; // when user is authenticated
 
   return token ? <AppTabsNavigator /> : <AuthStackNavigator />;
 };
