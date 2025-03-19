@@ -16,7 +16,7 @@ const CustomTheme = (colorScheme: string): Theme => {
     colors: {
       ...DefaultTheme.colors, // Spread the default colors properties
       primary: currentColors.primary, // Use primary color from your custom config
-      background: currentColors.light, // Use background color from your custom config
+      background: currentColors.primary, // Use background color from your custom config
       // You can customize more colors here as needed
     },
   };

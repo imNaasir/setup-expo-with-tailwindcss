@@ -1,16 +1,62 @@
 {
   "extends": "expo/tsconfig.base",
   "compilerOptions": {
+    "types": [
+      "react-native"
+    ],
     "strict": true,
+    "baseUrl": ".",
     "paths": {
-      "@/*": [
-        "./*"
+      "@/assets/*": [
+        "src/assets/*"
+      ],
+      "@/components/*": [
+        "src/components/*"
+      ],
+      "@/helpers/*": [
+        "src/helpers/*"
+      ],
+      "@/hooks/*": [
+        "src/hooks/*"
+      ],
+      "@/features/*": [
+        "src/features/*"
+      ],
+      "@layouts/*": [
+        "src/layouts/*"
+      ],
+      "@/navigation/*": [
+        "src/navigation/*"
+      ],
+      "@/screens/*": [
+        "src/screens/*"
+      ],
+      "@/stores/*": [
+        "src/stores/*"
+      ],
+      "@/auth/*": [
+        "src/auth/*"
       ]
     }
   },
   "include": [
+    "./**/*.ts",
+    "./**/*.tsx",
     "**/*.ts",
     "**/*.tsx",
+    "node_modules",
+    "./src/hooks/useThemeColor.ts",
     "nativewind-env.d.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist",
+    "build",
+    "coverage",
+    ".expo",
+    ".expo-shared",
+    "logs",
+    "tmp",
+    ".vscode"
   ]
 }

@@ -1,5 +1,5 @@
-import AppForm from "@/src/components/form/AppForm";
-import AppFormField from "@/src/components/form/AppFormField";
+import AppForm from "@/components/form/AppForm";
+import AppFormField from "@/components/form/AppFormField";
 import React from "react";
 import { Button, View } from "react-native";
 // import AppForm from "./AppForm";

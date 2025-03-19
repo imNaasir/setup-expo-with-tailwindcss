@@ -6,8 +6,11 @@
 import * as React from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { useNavigation, NavigationProp } from "@react-navigation/native";
-import WelcomeScreen from "@/src/screens/auth/Welcome.screen";
-import LoginForm from "@/src/screens/auth/LoginForm.screen";
+import WelcomeScreen from "@/screens/auth/Welcome.screen";
+import LoginForm from "@/screens/auth/LoginForm.screen";
+import Onboarding from "@/screens/auth/Onboarding";
+// import WelcomeScreen from "@/screens/auth/Welcome.screen";
+// import LoginForm from "@/screens/auth/LoginForm.screen";
 
 // Welcome Screen
 
@@ -22,10 +25,11 @@ const AuthStackNavigator = () => {
   return (
     <Stack.Navigator
       screenOptions={{ headerShown: true }}
-      initialRouteName="WelcomeScreen"
+      initialRouteName="Onboarding"
     >
       {/* Welcome Screens */}
       <Stack.Screen name="WelcomeScreen" component={WelcomeScreen} />
+      <Stack.Screen name="Onboarding" component={Onboarding} />
       <Stack.Screen name="LoginForm" component={LoginForm} />
     </Stack.Navigator>
   );

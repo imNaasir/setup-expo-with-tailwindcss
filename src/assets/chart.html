@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <!-- <meta http-equiv="Content-Security-Policy"
+            content="default-src * blob: data: 'unsafe-inline' 'unsafe-eval'"> -->
+        <meta http-equiv="Content-Security-Policy"
+            content="default-src * 'self' https://s3.tradingview.com 'unsafe-inline' 'unsafe-eval' data:;">
+
+        <link rel="icon" href="data:,">
+        <meta name="referrer" content="no-referrer">
+        <!-- <link rel="icon" href="data:,"> -->
+
+        <!-- Update CSP -->
+        <meta http-equiv="Content-Security-Policy"
+            content="default-src * data: blob: 'unsafe-inline' 'unsafe-eval' https://s3.tradingview.com">
+        <title>TradingView Chart</title>
+        <style>
+        html, body, #chart-container {
+            height: 100%;
+            width: 100%;
+            margin: 0;
+            padding: 0;
+            background-color: transparent;
+        }
+        body {
+            background-color: transparent !important;
+        }
+        /* Hide watermark using CSS */
+        iframe { 
+            position: relative;
+            overflow: hidden;
+        }
+        iframe::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 30px;
+            background: #f5ff5f;
+            z-index: 9999;
+        }
+    </style>
+    </head>
+    <body>
+        <div id="chart-container"
+            style="border: 2px solid transparent;"></div>
+
+        <script src="https://s3.tradingview.com/tv.js"></script>
+        <script type="text/javascript">
+        let widget = null;
+
+        function initChart(symbol) {
+            widget = new TradingView.widget({
+                symbol: symbol,
+                interval: "D",
+                container_id: "chart-container",
+                library_path: "",
+                locale: "en",
+                timezone: "Etc/UTC",
+                // theme: "dark",
+                autosize: true,
+                hide_legend: true,
+                disabled_features: [
+                    "header_fullscreen_button",
+                    "header_compare",
+                    "header_screenshot",
+                    "volume_force_overlay",
+                    "show_logo_on_all_charts",
+                    "caption_buttons_text_if_possible",
+                    "header_widget"
+                ],
+                enabled_features: ["hide_left_toolbar_by_default"],
+                overrides: {
+                    "paneProperties.background": "#ffffff",
+                    "scalesProperties.textColor": "#000",
+                    "symbolWatermarkProperties.transparency": 100,
+                    "mainSeriesProperties.showLabel": false,
+                    "mainSeriesProperties.showPriceTitle": false,
+                    "volumePaneSize": "tiny",
+                    "scalesProperties.lineColor": "#ffffff00",
+                    "studiesOverrides": {
+                        "volume.volume.color.0": "#ffffff00",
+                        "volume.volume.color.1": "#ffffff00",
+                        "volume.volume.transparency": 100,
+                        "volume.volume ma.color": "#ffffff00"
+                    }
+                }
+            });
+
+            widget.onChartReady(() => {
+                // Add horizontal line indicators
+                widget.chart().createStudy('Horizontal Line', false, false, [], {
+                    'plot.color': '#FF0000',
+                    'plot.linewidth': 2
+                });
+                
+                widget.chart().createStudy('Horizontal Line', false, false, [], {
+                    'plot.color': '#00FF00',
+                    'plot.linewidth': 2
+                });
+
+                // Force hide watermark
+                const iframe = document.querySelector('iframe');
+                iframe?.contentWindow?.postMessage({
+                    action: 'setLocals',
+                    locals: {
+                        showWatermark: false,
+                        watermark: 0,
+                        watermarkLayout: 9
+                    }
+                }, '*');
+
+                if (window.ReactNativeWebView) {
+                    window.ReactNativeWebView.postMessage("Chart Ready");
+                }
+            });
+        }
+
+        function handleMessage(event) {
+            const newSymbol = event.data;
+            if (!widget) {
+                initChart(newSymbol);
+            } else {
+                widget.chart().setSymbol(newSymbol, "D", () => {
+                    console.log("Symbol updated to:", newSymbol);
+                });
+            }
+        };
+                // Add both event listeners
+        document.addEventListener('message', handleMessage);
+        window.addEventListener('message', handleMessage);
+        // document.addEventListener("message", (event) => {
+        //     const newSymbol = event.data;
+        //     if (!widget) {
+        //         initChart(newSymbol);
+        //     } else {
+        //         widget.chart().setSymbol(newSymbol, "D", () => {
+        //             console.log("Symbol updated to:", newSymbol);
+        //         });
+        //     }
+        // });
+    </script>
+    </body>
+</html>

@@ -5,7 +5,7 @@ import axios from "axios";
 // export const baseURL = "http://216.48.176.105:8000";
 // export const baseURL = "http:192.168.6.103:3000";
 // export const baseURL = "http://192.168.28.251:3000";
-export const baseURL = "http://192.168.6.102:3000";
+export const baseURL = "http://localhost:3000";
 
 // export const baseURL = "http://192.168.6.121:3000";
 
@@ -16,21 +16,21 @@ export const baseURL = "http://192.168.6.102:3000";
 axios.defaults.withCredentials = true;
 axios.defaults.baseURL = `${baseURL}/api`;
 axios.defaults.headers.common = {
-    "X-Requested-With": "XMLHttpRequest",
-    "REQUEST-FROM": "app",
-    Accept: "application/json",
+  "X-Requested-With": "XMLHttpRequest",
+  "REQUEST-FROM": "app",
+  Accept: "application/json",
 };
 
 axios.interceptors.response.use(
-    function (response) {
-        return response;
-    },
-    function (error) {
-        if (error?.sta00tus === 401) {
-            console.log(" unauthorized  401 ");
-        }
-        return Promise.reject(error);
+  function (response) {
+    return response;
+  },
+  function (error) {
+    if (error?.sta00tus === 401) {
+      console.log(" unauthorized  401 ");
     }
+    return Promise.reject(error);
+  }
 );
 
 export default axios;

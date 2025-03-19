@@ -1,13 +1,13 @@
-import AppButton from "@/src/components/AppButton";
-import AppText from "@/src/components/AppText";
+import AppButton from "@/components/AppButton";
+import AppText from "@/components/AppText";
 import React, { useState } from "react";
 import { Text, View } from "react-native";
 import { Feather } from "@expo/vector-icons";
-import Label from "@/src/components/form/Label";
-import ErrorMessage from "@/src/components/form/ErrorMessage";
-import AppTextInput from "@/src/components/form/AppTextInput";
-import { FlexibleModal } from "@/src/components/modals/FlexibleModal";
-import AlertModal from "@/src/components/modals/AlertModal";
+import Label from "@/components/form/Label";
+import ErrorMessage from "@/components/form/ErrorMessage";
+import AppTextInput from "@/components/form/AppTextInput";
+import { FlexibleModal } from "@/components/modals/FlexibleModal";
+import AlertModal from "@/components/modals/AlertModal";
 import { useNavigation } from "@react-navigation/native";
 
 const WelcomeScreen = () => {
